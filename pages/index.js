@@ -1,6 +1,7 @@
 import React , {Component} from 'react'
 import MainLayout from '../components/layouts/mainLayout';
 import axios from 'axios';
+import Link from 'next/link';
 
 class Home extends Component {
 
@@ -9,7 +10,7 @@ class Home extends Component {
         let userData;
 
         try {
-            const response = await axios.get("https://jsonplaceholder.typicode.com/users/1")
+            const response = await axios.get("https://jsonplaceholder.typicode.com/users")
             userData = response.data
             console.log(userData)
         } catch {
@@ -32,10 +33,25 @@ class Home extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            user: this.props.user,
-            userData: this.props.userData
-        }
+    }
+
+    renderUsers = (users) => {
+        return (
+            users.map((user, index) => (
+                <li className="list-group-item" key={user.id}>
+                    <Link 
+                    as = {`/users/profile/${user.id}`}
+                    href = {{
+                        pathname: '/users/profile',
+                        query: {
+                            userId: user.id
+                        }
+                    }}>
+                        <a>{user.name}</a>
+                    </Link>
+                </li>
+            ))
+        )
     }
 
     render() {
@@ -43,7 +59,11 @@ class Home extends Component {
         return (
             <>
                 <MainLayout>
-                    <h1>Welcome to my first next.js app :)</h1>
+                    <br />
+                    <h1>Pick a User</h1>
+                    <ul className="list-group">
+                        {this.renderUsers(this.props.userData)}
+                    </ul>
                 </MainLayout>
             </>
         )

@@ -1,17 +1,42 @@
 import React from 'react';
+import MainLayout from '../../components/layouts/mainLayout';
+import axios from 'axios';
 
-const Profile = (props) => {
+class Profile extends React.Component {
 
-        console.log(props)
+    static getInitialProps = async ({query}) => {
+
+        let user;
+        
+        try {
+            const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${query.userId}`)
+            user = response.data
+
+        } catch (err) {
+            console.log(err)
+        }
+
+        return {user}
+    }
+
+    showUser = (user) => {
         return (
-            <h1>Profile</h1>
+            <div>
+                <div>Name : {user.name}</div>
+                <div>Phone : {user.phone}</div>
+                <div>Email : {user.email}</div>
+            </div>
         )
-    
-}
+    }
 
-Profile.getInitialProps = async ({query}) => {
-    return {
-        values: '1,2,3,4'
+    render() {
+    
+        return (
+            <MainLayout>
+                <br/>
+                {this.showUser(this.props.user)}
+            </MainLayout>
+        )
     }
 }
 

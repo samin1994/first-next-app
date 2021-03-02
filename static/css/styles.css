@@ -1,0 +1,15 @@
+.contactstatic {
+    color: green;
+}
+
+header {
+    background-color: #333333;
+}
+
+header .navbar-brand {
+    color: #dc3545 !important;
+    font-weight: 900;
+}
+header .navbar-nav .nav-item {
+    color: white !important;
+}

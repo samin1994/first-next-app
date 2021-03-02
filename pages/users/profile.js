@@ -1,11 +1,17 @@
-import React , {Component} from 'react'
+import React from 'react';
 
-class Profile extends Component {
+const Profile = (props) => {
 
-    render() {
+        console.log(props)
         return (
             <h1>Profile</h1>
         )
+    
+}
+
+Profile.getInitialProps = async ({query}) => {
+    return {
+        values: '1,2,3,4'
     }
 }
 
